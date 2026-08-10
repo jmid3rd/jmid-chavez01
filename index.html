@@ -44,7 +44,7 @@ button { width: 100%; padding: 12px; margin-top: 8px; border: none; border-radiu
 </style> </head> <body> <h2>TMG REPORT v1.0</h2> 
 <div class="row"> <div><label>DATE</label><input type="text" id="date" readonly></div> <div><label>SHIFT</label> <select id="shift"> <option value="SHIFT" selected>ShiftMo</option> <option value="1ST">1ST SHIFT</option><option value="2ND">2ND SHIFT</option><option value="3RD">3RD SHIFT</option> </select> </div> </div> 
 <div class="row"> <div><label>MOBILE</label> <select id="mobile"> <option value="" selected>MobileMo</option> <option value="M01">M01</option><option value="M02">M02</option><option value="M03">M03</option> <option value="M05">M05</option><option value="M06">M06</option><option value="M07">M07</option> </select> </div> <div><label>TIME</label><input type="time" id="time"></div> </div> 
-<label>LOCATION</label>
+<label>AOR</label>
 <select id="loc">
   <option value="">10-20 pre</option>
   <option>ELLIPTICAL-COMMONWEALTH</option>
@@ -193,7 +193,7 @@ function generateReport() {
   report += 'DATE: ' + get('date') + '\n'; 
   if(get('mobile')) report += 'MOBILE: ' + get('mobile') + '\n'; 
   if(get('time')) report += 'TIME: ' + get('time') + '\n'; 
-  if(get('loc')) report += 'LOC: ' + get('loc') + '\n'; 
+  if(get('loc')) report += 'AOR: ' + get('loc') + '\n'; 
   if(get('traffic')) report += 'TRAFFIC SITUATION: ' + get('traffic') + '\n';
 if(get('weather')) report += 'WEATHER CONDITION:' + get('weather') + '\n'; // tagulan ba
   let situation = get('situation');
