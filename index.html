@@ -192,7 +192,7 @@ function generateReport() {
   if(get('time')) report += 'TIME: ' + get('time') + '\n'; 
   if(get('loc')) report += 'LOC: ' + get('loc') + '\n'; 
   if(get('traffic')) report += 'TRAFFIC SITUATION: ' + get('traffic') + '\n';
-if(get('weather')) report += 'WEATHER CONDITION: ' + get('weather') + '\n'; // tagulan ba
+if(get('weather')) report += 'WEATHER CONDITION:' + get('weather') + '\n'; // tagulan ba
   let situation = get('situation');
 if(!situation) situation = 'CONDUCTING TDC';
 let s = situation.split('\n').map(line => '* ' + line).join('\n');
