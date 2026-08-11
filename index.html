@@ -1,300 +1,311 @@
-<!DOCTYPE html> <html> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>TMG Report v1.0</title> <style> 
-body { 
-  font-family: Arial; 
-  background: #1c1c1e; 
-  color: #fff; 
-  padding: 15px; 
-  margin: 0; 
-  max-width: 100%; /* para di masyado masikip */
-} 
-
-#output { 
-  background: #000; 
-  color: #fff; 
-  padding: 15px; 
-  border-radius: 8px; 
-  margin-top: 15px; 
-  white-space: pre-wrap; 
-  font-family: 'Courier New', monospace; /* mas malinaw sa messenger */
-  font-size: 13px; /* liitan konti para mas maraming kasya sa 1 line */
-  line-height: 1.4; /* dagdag space para di dikit dikit */
-  display: none; 
-  word-break: break-word; /* para di masira layout pag sobrang haba ng word */
-}
-h2 { text-align: center; color: #0a84ff; margin-bottom: 20px; } 
-input, select, textarea { width: 100%; padding: 10px; margin: 5px 0 12px 0; border-radius: 8px; border: 1px solid #3a3a3c; background: #2c2c2e; color: #fff; box-sizing: border-box; font-size: 16px; } 
-label { font-weight: bold; color: #98989f; font-size: 14px; } 
-.row { display: flex; gap: 10px; flex-wrap: wrap; } 
-.row > div { flex: 1; } 
-/* BAGONG STYLE PARA SA NAMES */
-.name-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 10px 0; }
-.name-grid label { background: #2c2c2e; padding: 10px; border-radius: 8px; border: 2px solid #3a3a3c; cursor: pointer; text-align: center; font-weight: normal; }
-.name-grid input { display: none; }
-.name-grid label:has(input:checked) { background: #0a84ff; border-color: #0a84ff; color: #fff; }
-button { width: 100%; padding: 12px; margin-top: 8px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; } 
-.generate { background: #0a84ff; color: white; } 
-.copy { background: #30d158; color: white; display: none; } 
-.clear { background: #ff453a; color: white; } 
-
-.section-title { text-align: center; margin: 15px 0 5px 0; color: #0a84ff; font-weight: bold; } 
-#accidentSection, #stalledSection { display: none; } 
-.vehicle-box { background: #2c2c2e; border: 2px solid #3a3a3c; border-radius: 12px; padding: 15px; margin-bottom: 15px; } 
-.add-btn { width: 100%; background: #2c2c2e; color: #0a84ff; border: 2px dashed #0a84ff; padding: 12px; border-radius: 12px; font-weight: 600; cursor: pointer; margin-bottom: 15px; } 
-@media(max-width:600px){ .name-grid{grid-template-columns: repeat(2, 1fr);} }
-</style> </head> <body> <h2>TMG REPORT v1.0</h2> 
-<div class="row"> <div><label>DATE</label><input type="text" id="date" readonly></div> <div><label>UNIT</label> <select id="shift"> <option value="SHIFT" selected>ShiftMo</option> <option value="1ST">1ST SHIFT</option><option value="2ND">2ND SHIFT</option><option value="3RD">3RD SHIFT</option> </select> </div> </div> 
-<div class="row"> <div><label>MOBILE</label> <select id="mobile"> <option value="" selected>MobileMo</option> <option value="M01">M01</option><option value="M02">M02</option><option value="M03">M03</option> <option value="M05">M05</option><option value="M06">M06</option><option value="M07">M07</option> </select> </div> <div><label>TIME</label><input type="time" id="time"></div> </div> 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TMG Report v1.0</title>
+<style>
+ body { font-family: Arial; background: #1c1c1e; color: #fff; padding: 15px; margin: 0; max-width: 100%; }
+ #output { background: #111; color: #fff; padding: 15px; border-radius: 8px; margin-top: 15px; white-space: pre-wrap; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.5; display: none; word-break: break-word; border: 1px solid #0a84ff; }
+ h2 { text-align: center; color: #0a84ff; margin-bottom: 20px; }
+ input, select, textarea { width: 100%; padding: 10px; margin: 5px 0 12px 0; border-radius: 8px; border: 1px solid #3a3a3c; background: #2c2c2e; color: #fff; box-sizing: border-box; font-size: 16px; }
+ label { font-weight: bold; color: #98989f; font-size: 14px; }
+ .row { display: flex; gap: 10px; flex-wrap: wrap; }
+ .row > div { flex: 1; }
+ button { width: 100%; padding: 12px; margin-top: 8px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
+ .generate { background: #0a84ff; color: white; }
+ .copy { background: #30d158; color: white; display: none; }
+ .clear { background: #ff453a; color: white; }
+ .section-title { text-align: center; margin: 15px 0 5px 0; color: #0a84ff; font-weight: bold; }
+ #accidentSection, #stalledSection { display: none; }
+ .vehicle-box { background: #2c2c2e; border: 2px solid #3a3a3c; border-radius: 12px; padding: 15px; margin-bottom: 15px; }
+ .add-btn { width: 100%; background: #2c2c2e; color: #0a84ff; border: 2px dashed #0a84ff; padding: 12px; border-radius: 12px; font-weight: 600; cursor: pointer; margin-bottom: 15px; }
+ @media(max-width:600px){ .row{flex-direction: column;} }
+</style>
+</head>
+<body>
+<h2>TMG REPORT v1.0</h2>
+<div class="row">
+ <div><label>DATE</label><input type="text" id="date" readonly></div>
+ <div><label>TMG+SHIFT</label>
+ <select id="shift">
+ <option value="SHIFT" selected>ShiftMo</option>
+ <option value="1ST">1ST SHIFT</option><option value="2ND">2ND SHIFT</option><option value="3RD">3RD SHIFT</option>
+ </select>
+ </div>
+</div>
+<div class="row">
+ <div><label>MOBILE</label>
+ <select id="mobile">
+ <option value="" selected>MobileMo</option>
+ <option value="M01">M01</option><option value="M02">M02</option><option value="M03">M03</option>
+ <option value="M05">M05</option><option value="M06">M06</option><option value="M07">M07</option>
+ </select>
+ </div>
+ <div><label>TIME</label><input type="time" id="time"></div>
+</div>
 <label>AOR</label>
 <select id="loc">
-  <option value="">AOR pre</option>
-  <option>ELLIPTICAL-COMMONWEALTH</option>
-  <option>SOLIVEN COMMO.E/B</option>
-  <option>DONA CARMEN COMMO. E/B</option>
-  <option>WISTON COMMO. E/B</option>
-  <option>MARLBORO COMMO. E/B</option>
-  <option>REGALADO COMMO. E/B</option>
-  <option>BICOL-LEYTE COMMO WB</option>
-  <option>TECHNOHUB COMMO. W/B</option>
-  <option>ALONG COMMONWEALTH</option>
-  <option>ALONG ELLIPTICAL</option>
-  <option>EDSA MEGAMALL NB</option>
-  <option>EDSA BALINTAWAK SB</option>
+ <option value="">AOR pre</option>
+ <option>ELLIPTICAL-COMMONWEALTH</option>
+ <option>SOLIVEN COMMO.E/B</option>
+ <option>DONA CARMEN COMMO. E/B</option>
+ <option>WISTON COMMO. E/B</option>
+ <option>MARLBORO COMMO. E/B</option>
+ <option>REGALADO COMMO. E/B</option>
+ <option>TECHNOHUB COMMO. W/B</option>
+ <option>ALONG COMMONWEALTH</option>
+ <option>ALONG ELLIPTICAL</option>
+ <option>EDSA MEGAMALL NB</option>
+ <option>EDSA BALINTAWAK SB</option>
 </select>
-<label>TRAFFIC SITUATION</label> <select id="traffic"> <option value="" selected>SituationMo</option> <option value="LIGHT">LIGHT</option><option value="MODERATE">MODERATE</option><option value="HEAVY">HEAVY</option> </select> 
+<label>TRAFFIC SITUATION</label>
+<select id="traffic">
+ <option value="" selected>SituationMo</option>
+ <option value="LIGHT">LIGHT</option><option value="MODERATE">MODERATE</option><option value="HEAVY">HEAVY</option>
+</select>
 <label>CURRENT SITUATION</label>
 <textarea id="situation" rows="2" placeholder="CONDUCTING TDC / ASSISTING ACCIDENT"></textarea>
 <label>WEATHER CONDITION</label>
 <select id="weather">
-  <option value="" selected>WeatherMo</option>
-  <option value="SUNNY">SUNNY</option>
-  <option value="CLOUDY">CLOUDY</option>
-  <option value="RAINY">RAINY</option>
-  <option value="LIGHT RAIN">LIGHT RAIN</option>
-  <option value="HEAVY RAIN">HEAVY RAIN</option>
-  <option value="FOGGY">FOGGY</option>
-  <option value="WINDY">WINDY</option>
-  <option value="CLEAR">CLEAR</option>
+ <option value="" selected>WeatherMo</option>
+ <option value="SUNNY">SUNNY</option>
+ <option value="CLOUDY">CLOUDY</option>
+ <option value="RAINY">RAINY</option>
+ <option value="LIGHT RAIN">LIGHT RAIN</option>
+ <option value="HEAVY RAIN">HEAVY RAIN</option>
+ <option value="FOGGY">FOGGY</option>
+ <option value="WINDY">WINDY</option>
+ <option value="CLEAR">CLEAR</option>
 </select>
-<!-- STALLED TOGGLE --> 
-<div class="section-title"> ---STALLED VEHICLE ---
-</div> 
-<select id="stalledSelect" onchange="toggleStalled(this.value)"> <option value="no" selected>NO STALLED</option> <option value="yes">YES STALLED</option> </select> 
-<div id="stalledSection"> <div class="vehicle-box"> <input type="text" id="stalledVehicle" placeholder="PLATE NO / MAKE / MODEL"> <input type="text" id="stalledReason" placeholder="REASON: OVERHEAT / FLAT TIRE / ENGINE TROUBLE"> <input type="text" id="stalledDriver" placeholder="DRIVER NAME"> <input type="text" id="towtruck" placeholder="TOWTRUCK"> <input type="text" id="ticketno" placeholder="TICKET NO."> </div> </div> 
-
-<!-- ACCIDENT TOGGLE --> 
-<div class="section-title">--- VEHICULAR ACCIDENT ---</div> 
-<select id="accidentSelect" onchange="toggleAccident(this.value)"> <option value="no" selected>NO ACCIDENT</option> <option value="yes">YES ACCIDENT</option> </select> 
-<div id="accidentSection"> <div class="section-title">VEHICLES INVOLVED</div> 
-<div id="vehiclesContainer"> <div class="vehicle-box vehicle-entry" data-vehicle="1"> <h4 style="color:#0a84ff;margin:0 0 12px 0">VEHICLE 1</h4> <input type="text" id="vehicle1_type" placeholder="Plate No. / Make / Model"> <div class="row"> <div><input type="text" id="vehicle1_or" placeholder="OR No."></div> <div><input type="text" id="vehicle1_cr" placeholder="CR No."></div> </div> <input type="text" id="vehicle1_driver" placeholder="Driver Name"> <input type="text" id="vehicle1_lic" placeholder="License No."> <input type="text" id="vehicle1_addr" placeholder="Address"> </div> </div> 
-<button type="button" onclick="addVehicle()" class="add-btn">➕ Add Another Vehicle</button> </div> 
-
-<!-- LAGING KITA --> 
-<label>REMARKS</label><textarea id="remarks" rows="2" placeholder="Actions taken / Other details"></textarea> 
-
-<div class="row"> <div><label>TIME CLEARED</label><input type="time" id="cleared"></div> </div>
-
-<!-- BAGONG REPORTED BY SECTION -->
-<label>REPORTED BY - TAP PARA PUMILI NG CUTE, MAX 4</label>
+<div class="section-title"> ---STALLED VEHICLE --- </div>
+<select id="stalledSelect" onchange="toggleStalled(this.value)">
+ <option value="no" selected>NO STALLED</option>
+ <option value="yes">YES STALLED</option>
+</select>
+<div id="stalledSection">
+ <div class="vehicle-box">
+ <input type="text" id="stalledVehicle" placeholder="PLATE NO / MAKE / MODEL">
+ <input type="text" id="stalledReason" placeholder="REASON: OVERHEAT / FLAT TIRE / ENGINE TROUBLE">
+ <input type="text" id="stalledDriver" placeholder="DRIVER NAME">
+ <input type="text" id="towtruck" placeholder="TOWTRUCK">
+ <input type="text" id="ticketno" placeholder="TICKET NO.">
+ </div>
+</div>
+<div class="section-title">--- VEHICULAR ACCIDENT ---</div>
+<select id="accidentSelect" onchange="toggleAccident(this.value)">
+ <option value="no" selected>NO ACCIDENT</option>
+ <option value="yes">YES ACCIDENT</option>
+</select>
+<div id="accidentSection">
+ <div class="section-title">VEHICLES INVOLVED</div>
+ <div id="vehiclesContainer">
+ <div class="vehicle-box vehicle-entry" data-vehicle="1">
+ <h4 style="color:#0a84ff;margin:0 0 12px 0">VEHICLE 1</h4>
+ <input type="text" id="vehicle1_type" placeholder="Plate No. / Make / Model">
+ <div class="row">
+ <div><input type="text" id="vehicle1_or" placeholder="OR No."></div>
+ <div><input type="text" id="vehicle1_cr" placeholder="CR No."></div>
+ </div>
+ <input type="text" id="vehicle1_driver" placeholder="Driver Name">
+ <input type="text" id="vehicle1_lic" placeholder="License No.">
+ <input type="text" id="vehicle1_addr" placeholder="Address">
+ </div>
+ </div>
+ <button type="button" onclick="addVehicle()" class="add-btn">➕ Add Another Vehicle</button>
+</div>
+<label>REMARKS</label><textarea id="remarks" rows="2" placeholder="Actions taken / Other details"></textarea>
+<div class="row">
+ <div><label>TIME CLEARED</label><input type="time" id="cleared"></div>
+</div>
+<label>REPORTED BY - TAP PARA PUMILI, MAX 4</label>
 <select id="reportedby" multiple size="4" style="height: auto;">
-  <option value="CHAVEZ (TMG)">CHAVEZ </option>
-  <option value="CONTAWE (TMG)">CONTAWE</option>
-  <option value="BAYAUA (TMG)">BAYAUA</option>
-  <option value="LAZARO (TMG)">LAZARO</option>
-  <option value="ROMEN (TMG)">ROMEN</option>
-  <option value="DUMPIT (TMG)">DUMPIT</option>
-  <option value="BACAY (CSTD)">BACAY</option>
-  <option value="SORIANO (CSTD)">SORIANO</option>
-  <option value="TALISIC (CSTD)">TALISIC</option>
-  <option value="DUMALAON (CSTD)">DUMALAON</option>
+ <option value="CHAVEZ (TMG)">CHAVEZ </option>
+ <option value="CONTAWE (TMG)">CONTAWE</option>
+ <option value="BAYAUA (TMG)">BAYAUA</option>
+ <option value="LAZARO (TMG)">LAZARO</option>
+ <option value="ROMEN (TMG)">ROMEN</option>
+ <option value="DUMPIT (TMG)">DUMPIT</option>
+ <option value="BACAY (CSTD)">BACAY</option>
+ <option value="SORIANO (CSTD)">SORIANO</option>
+ <option value="TALISIC (CSTD)">TALISIC</option>
+ <option value="DUMALAON (CSTD)">DUMALAON</option>
 </select>
-
-<button class="generate" onclick="generateReport()">Generate Report</button> 
-<button class="copy" id="copyBtn" onclick="copyReport()">📋 Copy Report</button> 
-<button class="clear" onclick="clearForm()">Clear Form</button> 
-<pre id="output"></pre> 
-
+<button class="generate" onclick="generateReport()">Generate Report</button>
+<button class="copy" id="copyBtn" onclick="copyReport()">📋 Copy Report</button>
+<button class="clear" onclick="clearForm()">Clear Form</button>
+<pre id="output"></pre>
 <script>
-document.addEventListener('input', function(e) { 
-  if(e.target.tagName === 'INPUT' && e.target.type === 'text') e.target.value = e.target.value.toUpperCase(); 
-  if(e.target.tagName === 'TEXTAREA') e.target.value = e.target.value.toUpperCase(); 
-}); 
-
-// LIMIT REPORTED BY TO 4
-document.getElementById('reportedby').addEventListener('change', function() {
-  let selected = Array.from(this.selectedOptions);
-  if(selected.length > 4) {
-    selected[selected.length - 1].selected = false;
-    alert('HANGGANG 4 LANG PWEDE PILIIN!');
-  }
+document.addEventListener('input', function(e) {
+ if(e.target.tagName === 'INPUT' && e.target.type === 'text') e.target.value = e.target.value.toUpperCase();
+ if(e.target.tagName === 'TEXTAREA') e.target.value = e.target.value.toUpperCase();
 });
-
-let vehicleCount = 1; 
-document.getElementById('date').value = new Date().toLocaleDateString('en-US', {month: '2-digit', day: '2-digit', year: 'numeric'}); 
-document.getElementById('time').value = new Date().toTimeString().slice(0,5); 
-
-function toggleStalled(val) { 
-  document.getElementById('stalledSection').style.display = (val === 'yes')? 'block' : 'none'; 
-  if(val === 'no') { 
-    document.getElementById('stalledVehicle').value = ''; 
-    document.getElementById('stalledReason').value = ''; 
-    document.getElementById('stalledDriver').value = ''; 
-    document.getElementById('towtruck').value = ''; 
-    document.getElementById('ticketno').value = ''; 
-  } 
-} 
-
-function toggleAccident(val) { 
-  document.getElementById('accidentSection').style.display = (val === 'yes')? 'block' : 'none'; 
-  if(val === 'no') clearAccidentData(); 
-} 
-
-function addVehicle() { 
-  vehicleCount++; 
-  const container = document.getElementById('vehiclesContainer'); 
-  const newVehicle = document.createElement('div'); 
-  newVehicle.className = 'vehicle-box vehicle-entry'; 
-  newVehicle.setAttribute('data-vehicle', vehicleCount); 
-  newVehicle.innerHTML = ` 
-    <h4 style="color:#0a84ff;margin:0 0 12px 0">VEHICLE ${vehicleCount}</h4> 
-    <input type="text" id="vehicle${vehicleCount}_type" placeholder="Plate No. / Make / Model"> 
-    <div class="row"> 
-      <div><input type="text" id="vehicle${vehicleCount}_or" placeholder="OR No."></div> 
-      <div><input type="text" id="vehicle${vehicleCount}_cr" placeholder="CR No."></div> 
-    </div> 
-    <input type="text" id="vehicle${vehicleCount}_driver" placeholder="Driver Name"> 
-    <input type="text" id="vehicle${vehicleCount}_lic" placeholder="License No."> 
-    <input type="text" id="vehicle${vehicleCount}_addr" placeholder="Address"> 
-  `; 
-  container.appendChild(newVehicle); 
-} 
-
-function clearAccidentData() { 
-  document.getElementById('vehiclesContainer').innerHTML = ` 
-    <div class="vehicle-box vehicle-entry" data-vehicle="1"> 
-      <h4 style="color:#0a84ff;margin:0 0 12px 0">VEHICLE 1</h4> 
-      <input type="text" id="vehicle1_type" placeholder="Plate No. / Make / Model"> 
-      <div class="row"> 
-        <div><input type="text" id="vehicle1_or" placeholder="OR No."></div> 
-        <div><input type="text" id="vehicle1_cr" placeholder="CR No."></div> 
-      </div> 
-      <input type="text" 9id="vehicle1_driver" placeholder="Driver Name"> 
-      <input type="text" id="vehicle1_lic" placeholder="License No."> 
-      <input type="text" id="vehicle1_addr" placeholder="Address"> 
-    </div> 
-  `; 
-  vehicleCount = 1; 
-} 
-
-function generateReport() { 
-  const get = id => document.getElementById(id).value.trim(); 
-  let shift = get('shift'); 
-  if(shift === 'SHIFT') shift = '3RD'; 
-  let report = '```\n🚦TRAFFIC UPDATE🚦\n🚦TMG/' + shift + ' SHIFT🚦\n'; 
-  report += '____________________\n'; 
-  report += 'DATE: ' + get('date') + '\n'; 
-  if(get('mobile')) report += 'MOBILE: ' + get('mobile') + '\n'; 
-  if(get('time')) report += 'TIME: ' + get('time') + '\n'; 
-  if(get('loc')) report += 'AOR: ' + get('loc') + '\n'; 
-  if(get('traffic')) report += 'TRAFFIC SITUATION: ' + get('traffic') + '\n';
-if(get('weather')) report += 'WEATHER CONDITION:' + get('weather') + '\n'; // tagulan ba
-  let situation = get('situation');
-if(!situation) situation = 'CONDUCTING TDC';
-let s = situation.split('\n').map(line => '* ' + line).join('\n');
-report += 'CURRENT SITUATION:\n' + s + '\n'; 
-  
-  // Vehicles 
-  if(document.getElementById('accidentSelect').value === 'yes') {
-  report += '\n🚖VEHICLES INVOLVED\n'; // pasaway linei
-    const vehicles = document.querySelectorAll('.vehicle-box.vehicle-entry'); 
-    vehicles.forEach((box, index) => { 
-      const num = index + 1; 
-      const vtype = get(`vehicle${num}_type`); 
-      const vor = get(`vehicle${num}_or`); 
-      const vcr = get(`vehicle${num}_cr`); 
-      const vdriver = get(`vehicle${num}_driver`); 
-      const vlic = get(`vehicle${num}_lic`); 
-      const vaddr = get(`vehicle${num}_addr`); 
-      if(vtype || vdriver) {
-  report += '\nVEHICLE ' + num + ':\n';  // dagdag : at \n
-  if(vtype) report += vtype + '\n';       // separate line yung plate/make/model
-  if(vcr) report += 'CR: ' + vcr + '\n';
-  if(vor) report += 'OR: ' + vor + '\n';
-  if(vdriver) report += 'DRIVER: ' + vdriver + '\n';
-  if(vlic) report += 'LIC NO: ' + vlic + '\n';
-  if(vaddr) report += 'ADDRESS: ' + vaddr + '\n';
+document.getElementById('reportedby').addEventListener('change', function() {
+ let selected = Array.from(this.selectedOptions);
+ if(selected.length > 4) {
+ selected[selected.length - 1].selected = false;
+ alert('HANGGANG 4 LANG PWEDE PILIIN!');
+ }
+});
+let vehicleCount = 1;
+const now = new Date();
+const options = { month: 'short', day: '2-digit', year: 'numeric' };
+document.getElementById('date').value = now.toLocaleDateString('en-US', options).toUpperCase();
+document.getElementById('time').value = now.toTimeString().slice(0,5);
+function toggleStalled(val) {
+ document.getElementById('stalledSection').style.display = (val === 'yes')? 'block' : 'none';
+ if(val === 'no') {
+ document.getElementById('stalledVehicle').value = '';
+ document.getElementById('stalledReason').value = '';
+ document.getElementById('stalledDriver').value = '';
+ document.getElementById('towtruck').value = '';
+ document.getElementById='ticketno'.value = '';
+ }
 }
-    }); 
-  } 
-  
-  // Stalled 
-  if(document.getElementById('stalledSelect').value === 'yes') { 
-    const stalled = get('stalledVehicle'); 
-    const stalledR = get('stalledReason'); 
-    const stalledD = get('stalledDriver'); 
-    const tow = get('towtruck'); 
-    const ticket = get('ticketno'); 
-    if(stalled || stalledD) { 
-      report += '\n🛢️STALLED VEHICLE \n'; 
-      if(stalled) report += 'PLATE/MAKE: ' + stalled + '\n'; 
-      if(stalledR) report += 'REASON: ' + stalledR + '\n'; 
-      if(stalledD) report += 'DRIVER: ' + stalledD + '\n'; 
-      if(tow) report += 'TOWTRUCK: ' + tow + '\n'; 
-      if(ticket) report += 'TICKET NO: ' + ticket + '\n'; 
-    } 
-  } 
-  
-  if(get('remarks')) {
-  let r = get('remarks').split('\n').map(line => '* ' + line).join('\n');
-  report += '\nREMARKS:\n' + r + '\n';
-} 
-  if(get('cleared')) report += '\nTIME CLEARED: ' + get('cleared') + '\n'; 
-  report += '____________________\n'; 
-  
-  // BAGONG REPORTED BY - PABABA
-  let reporters = Array.from(document.getElementById('reportedby').selectedOptions).map(opt => opt.value);
-  if(reporters.length > 0) {
-    report += 'REPORTED BY:\n';
-    reporters.forEach(name => {
-      report += name + '\n';
-    });
-  }
-  
-  report += '```'; 
-  document.getElementById('output').style.display = 'block'; 
-  document.getElementById('output').innerText = report; 
-  document.getElementById('copyBtn').style.display = 'block'; 
-} 
-
-function copyReport() { 
-  const text = document.getElementById('output').innerText; 
-  if (!text || text === '```\n```') { 
-    alert('WALA PANG REPORT NA GENERATED!'); 
-    return; 
-  } 
-  const textarea = document.createElement('textarea'); 
-  textarea.value = text; 
-  document.body.appendChild(textarea); 
-  textarea.select(); 
-  document.execCommand('copy'); 
-  document.body.removeChild(textarea); 
-  document.getElementById('copyBtn').innerText = '✅ Copied!'; 
-  setTimeout(() => document.getElementById('copyBtn').innerText = '📋 Copy Report', 2000); 
-} 
-
-function clearForm() { 
-  document.querySelectorAll('input[type=text], input[type=time], textarea').forEach(el => { 
-    if(el.id!== 'date') el.value = ''; 
-  }); 
-  // Clear reportedby
-  document.getElementById('reportedby').selectedIndex = -1;
-  document.getElementById('stalledSelect').value = 'no'; 
-  toggleStalled('no'); 
-  document.getElementById('accidentSelect').value = 'no'; 
-  toggleAccident('no'); 
-  document.getElementById('output').style.display = 'none'; 
-  document.getElementById('copyBtn').style.display = 'none'; 
-  document.getElementById('time').value = new Date().toTimeString().slice(0,5); 
-} 
+function toggleAccident(val) {
+ document.getElementById('accidentSection').style.display = (val === 'yes')? 'block' : 'none';
+ if(val === 'no') clearAccidentData();
+}
+function addVehicle() {
+ vehicleCount++;
+ const container = document.getElementById('vehiclesContainer');
+ const newVehicle = document.createElement('div');
+ newVehicle.className = 'vehicle-box vehicle-entry';
+ newVehicle.setAttribute('data-vehicle', vehicleCount);
+ newVehicle.innerHTML = `
+ <h4 style="color:#0a84ff;margin:0 0 12px 0">VEHICLE ${vehicleCount}</h4>
+ <input type="text" id="vehicle${vehicleCount}_type" placeholder="Plate No. / Make / Model">
+ <div class="row">
+ <div><input type="text" id="vehicle${vehicleCount}_or" placeholder="OR No."></div>
+ <div><input type="text" id="vehicle${vehicleCount}_cr" placeholder="CR No."></div>
+ </div>
+ <input type="text" id="vehicle${vehicleCount}_driver" placeholder="Driver Name">
+ <input type="text" id="vehicle${vehicleCount}_lic" placeholder="License No.">
+ <input type="text" id="vehicle${vehicleCount}_addr" placeholder="Address">
+ `;
+ container.appendChild(newVehicle);
+}
+function clearAccidentData() {
+ document.getElementById('vehiclesContainer').innerHTML = `
+ <div class="vehicle-box vehicle-entry" data-vehicle="1">
+ <h4 style="color:#0a84ff;margin:0 0 12px 0">VEHICLE 1</h4>
+ <input type="text" id="vehicle1_type" placeholder="Plate No. / Make / Model">
+ <div class="row">
+ <div><input type="text" id="vehicle1_or" placeholder="OR No."></div>
+ <div><input type="text" id="vehicle1_cr" placeholder="CR No."></div>
+ </div>
+ <input type="text" id="vehicle1_driver" placeholder="Driver Name">
+ <input type="text" id="vehicle1_lic" placeholder="License No.">
+ <input type="text" id="vehicle1_addr" placeholder="Address">
+ </div>
+ `;
+ vehicleCount = 1;
+}
+function generateReport() {
+ const get = id => document.getElementById(id).value.trim();
+ let shift = get('shift');
+ if(shift === 'SHIFT') shift = '3RD';
+ let unit = "TMG";
+ let date = get('date');
+ let time = get('time');
+ if(time) { time = time.replace(':', '') + 'H'; }
+ 
+ let report = '';
+ report += `🚦🚦 TRAFFIC UPDATE 🚦🚦\n`;
+ report += `UNIT : ${unit} ${shift} SHIFT\n`;
+ report += `DATE : ${date}\n`;
+ report += `TIME : ${time}\n`;
+ report += `AOR : ${get('loc').toUpperCase()}\n`;
+ report += '____________________\n';
+ 
+ if(get('traffic')) report += 'TRAFFIC SITUATION: ' + get('traffic') + '\n';
+ if(get('weather')) report += 'WEATHER CONDITION: ' + get('weather') + '\n';
+ 
+ let situation = get('situation');
+ if(!situation) situation = 'CONDUCTING TDC';
+ let s = situation.split('\n').map(line => '* ' + line).join('\n');
+ report += 'CURRENT SITUATION:\n' + s + '\n';
+ 
+ if(document.getElementById('accidentSelect').value === 'yes') {
+ report += '\n🚖 VEHICLES INVOLVED\n';
+ const vehicles = document.querySelectorAll('.vehicle-box.vehicle-entry');
+ vehicles.forEach((box, index) => {
+ const num = index + 1;
+ const vtype = get(`vehicle${num}_type`);
+ const vor = get(`vehicle${num}_or`);
+ const vcr = get(`vehicle${num}_cr`);
+ const vdriver = get(`vehicle${num}_driver`);
+ const vlic = get(`vehicle${num}_lic`);
+ const vaddr = get(`vehicle${num}_addr`);
+ if(vtype || vdriver) {
+ report += '\nVEHICLE ' + num + ':\n';
+ if(vtype) report += vtype + '\n';
+ if(vcr) report += 'CR: ' + vcr + '\n';
+ if(vor) report += 'OR: ' + vor + '\n';
+ if(vdriver) report += 'DRIVER: ' + vdriver + '\n';
+ if(vlic) report += 'LIC NO: ' + vlic + '\n';
+ if(vaddr) report += 'ADDRESS: ' + vaddr + '\n';
+ }
+ });
+ }
+ 
+ if(document.getElementById('stalledSelect').value === 'yes') {
+ const stalled = get('stalledVehicle');
+ const stalledR = get('stalledReason');
+ const stalledD = get('stalledDriver');
+ const tow = get('towtruck');
+ const ticket = get('ticketno');
+ if(stalled || stalledD) {
+ report += '\n🛢️ STALLED VEHICLE\n';
+ if(stalled) report += 'PLATE/MAKE: ' + stalled + '\n';
+ if(stalledR) report += 'REASON: ' + stalledR + '\n';
+ if(stalledD) report += 'DRIVER: ' + stalledD + '\n';
+ if(tow) report += 'TOWTRUCK: ' + tow + '\n';
+ if(ticket) report += 'TICKET NO: ' + ticket + '\n';
+ }
+ }
+ 
+ if(get('remarks')) {
+ let r = get('remarks').split('\n').map(line => '* ' + line).join('\n');
+ report += '\nREMARKS:\n' + r + '\n';
+ }
+ if(get('cleared')) report += '\nTIME CLEARED: ' + get('cleared') + '\n';
+ report += '____________________\n';
+ 
+ let reporters = Array.from(document.getElementById('reportedby').selectedOptions).map(opt => opt.value);
+ if(reporters.length > 0) {
+ report += 'REPORTED BY:\n';
+ reporters.forEach(name => { report += name + '\n'; });
+ }
+ 
+ document.getElementById('output').style.display = 'block';
+ document.getElementById('output').innerText = report;
+ document.getElementById('copyBtn').style.display = 'block';
+}
+function copyReport() {
+ const text = document.getElementById('output').innerText;
+ if (!text) { alert('WALA PANG REPORT NA GENERATED!'); return; }
+ const textarea = document.createElement('textarea');
+ textarea.value = text;
+ document.body.appendChild(textarea);
+ textarea.select();
+ document.execCommand('copy');
+ document.body.removeChild(textarea);
+ document.getElementById('copyBtn').innerText = '✅ Copied!';
+ setTimeout(() => document.getElementById('copyBtn').innerText = '📋 Copy Report', 2000);
+}
+function clearForm() {
+ document.querySelectorAll('input[type=text], input[type=time], textarea').forEach(el => {
+ if(el.id!== 'date') el.value = '';
+ });
+ document.getElementById('reportedby').selectedIndex = -1;
+ document.getElementById('stalledSelect').value = 'no'; toggleStalled('no');
+ document.getElementById('accidentSelect').value = 'no'; toggleAccident('no');
+ document.getElementById('output').style.display = 'none';
+ document.getElementById('copyBtn').style.display = 'none';
+ document.getElementById('time').value = new Date().toTimeString().slice(0,5);
+}
 </script>
-</body> 
+</body>
 </html>
+  
