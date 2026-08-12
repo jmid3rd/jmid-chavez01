@@ -57,31 +57,31 @@
  <div><label>TIME</label><input type="time" id="time"></div>
 </div>
 
-<!-- ✅ AOR — PUMILI O I-TYPE -->
+<!-- ✅ AOR — MAY SARILING LISTAHAN -->
 <label>AOR</label>
-<input list="aor-list" id="aor" placeholder="Pumili o I-type">
-<datalist id="aor-list">
- <option>ELLIPTICAL-COMMONWEALTH</option>
- <option>COMMONWEALTH</option>
- <option>ELLIPTICAL</option>
- <option>EDSA MEGAMALL</option>
- <option>EDSA BALINTAWAK</option>
+<input type="text" list="aor-options" id="aor" placeholder="Pumili o I-type">
+<datalist id="aor-options">
+ <option value="ELLIPTICAL-COMMONWEALTH"></option>
+ <option value="COMMONWEALTH"></option>
+ <option value="ELLIPTICAL"></option>
+ <option value="EDSA MEGAMALL"></option>
+ <option value="EDSA BALINTAWAK"></option>
 </datalist>
 
-<!-- ✅ LOCATION — PUMILI O I-TYPE -->
+<!-- ✅ LOCATION — IBANG PANGALAN NG LISTAHAN (WALA NANG SAGABAL) -->
 <label>LOCATION</label>
-<input list="loc-list" id="loc" placeholder="Pumili o I-type">
-<datalist id="loc-list">
- <option>ELLIPTICAL</option>
- <option>COMMONWEALTH</option>
- <option>SOLIVEN COMMO.E/B</option>
- <option>DONA CARMEN COMMO. E/B</option>
- <option>WISTON COMMO.E/B</option>
- <option>MARLBORO COMMO.E/B</option>
- <option>REGALADO COMMO.E/B</option>
- <option>TECHNOHUB COMMO.W/B</option>
- <option>EDSA MEGAMALL NB</option>
- <option>EDSA BALINTAWAK SB</option>
+<input type="text" list="location-options" id="loc" placeholder="Pumili o I-type">
+<datalist id="location-options">
+ <option value="ELLIPTICAL"></option>
+ <option value="COMMONWEALTH"></option>
+ <option value="SOLIVEN COMMO. E/B"></option>
+ <option value="DONA CARMEN COMMO. E/B"></option>
+ <option value="WISTON COMMO. E/B"></option>
+ <option value="MARLBORO COMMO. E/B"></option>
+ <option value="REGALADO COMMO. E/B"></option>
+ <option value="TECHNOHUB COMMO. W/B"></option>
+ <option value="EDSA MEGAMALL NB"></option>
+ <option value="EDSA BALINTAWAK SB"></option>
 </datalist>
 
 <label>TRAFFIC SITUATION</label>
@@ -369,16 +369,29 @@ function copyReport() {
  setTimeout(() => document.getElementById('copyBtn').innerText = '📋 Copy Report', 2000);
 }
 
+// ✅ INAYOS: NGAYON BUBURAHIN LAHAT NG INPUT / SELECT / TEXTAREA
 function clearForm() {
- document.querySelectorAll('input[type=text], input[type=time], textarea').forEach(el => {
- if(el.id!== 'date') el.value = '';
+ // Burahin lahat ng input text/time
+ document.querySelectorAll('input').forEach(el => {
+   if(el.id !== 'date') el.value = '';
  });
- document.getElementById('reportedby').selectedIndex = -1;
+ // Burahin lahat ng select
+ document.querySelectorAll('select').forEach(el => el.selectedIndex = 0);
+ // Burahin lahat ng textarea
+ document.querySelectorAll('textarea').forEach(el => el.value = '');
+ 
+ // Reset Stalled / Accident
  document.getElementById('stalledSelect').value = 'no'; toggleStalled('no');
  document.getElementById('accidentSelect').value = 'no'; toggleAccident('no');
+ 
+ // Reset Report Box at Copy Button
  document.getElementById('output').style.display = 'none';
  document.getElementById('copyBtn').style.display = 'none';
+ 
+ // Reset Time to Now
  document.getElementById('time').value = new Date().toTimeString().slice(0,5);
+ 
+ // Hide Advanced Section
  advVisible = false;
  document.getElementById('advancedSection').style.display = 'none';
  document.getElementById('advToggle').innerText = '➕ MORE OPTIONS (Stalled / Accident / Remarks / Time Cleared)';
