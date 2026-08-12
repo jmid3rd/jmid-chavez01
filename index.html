@@ -8,8 +8,14 @@
  body { font-family: Arial; background: #1c1c1e; color: #fff; padding: 15px; margin: 0; max-width: 100%; }
  #output { background: #111; color: #fff; padding: 15px; border-radius: 8px; margin-top: 15px; white-space: pre-wrap; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.5; display: none; word-break: break-word; border: 1px solid #0a84ff; }
  h2 { text-align: center; color: #0a84ff; margin-bottom: 20px; }
- input, select, textarea { width: 100%; padding: 10px; margin: 5px 0 12px 0; border-radius: 8px; border: 1px solid #3a3a3c; background: #2c2c2e; color: #fff; box-sizing: border-box; font-size: 16px; }
- label { font-weight: bold; color: #98989f; font-size: 14px; }
+ input, select, textarea { width: 100%; padding: 10px; margin: 5px 0 12px 0; border-radius: 8px; border: 1px solid #3a3a3c; background: #2c2c2e; color: #fff; box-sizing: border-box; font-size: 14px; }
+ label { 
+   font-weight: normal; 
+   color: #98989f; 
+   font-size: 12px;
+   display: block;
+   margin-bottom: 2px;
+ }
  .row { display: flex; gap: 10px; flex-wrap: wrap; }
  .row > div { flex: 1; }
  button { width: 100%; padding: 12px; margin-top: 8px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; }
@@ -17,7 +23,11 @@
  .copy { background: #30d158; color: white; display: none; }
  .clear { background: #ff453a; color: white; }
  .section-title { text-align: center; margin: 15px 0 5px 0; color: #0a84ff; font-weight: bold; }
- #accidentSection, #stalledSection { display: none; }
+ #advancedSection, #accidentSection, #stalledSection { display: none; }
+ .toggle-btn { 
+   background: #2c2c2e; color: #0a84ff; 
+   border: 2px dashed #0a84ff; margin: 10px 0 20px 0; 
+ }
  .vehicle-box { background: #2c2c2e; border: 2px solid #3a3a3c; border-radius: 12px; padding: 15px; margin-bottom: 15px; }
  .add-btn { width: 100%; background: #2c2c2e; color: #0a84ff; border: 2px dashed #0a84ff; padding: 12px; border-radius: 12px; font-weight: 600; cursor: pointer; margin-bottom: 15px; }
  @media(max-width:600px){ .row{flex-direction: column;} }
@@ -29,46 +39,63 @@
  <div><label>DATE</label><input type="text" id="date" readonly></div>
  <div><label>TMG+SHIFT</label>
  <select id="shift">
- <option value="SHIFT" selected>ShiftMo</option>
- <option value="1ST">1ST SHIFT</option><option value="2ND">2ND SHIFT</option><option value="3RD">3RD SHIFT</option>
+ <option value="" selected>-- SELECT SHIFT --</option>
+ <option value="1ST">1ST SHIFT</option>
+ <option value="2ND">2ND SHIFT</option>
+ <option value="3RD">3RD SHIFT</option>
  </select>
  </div>
 </div>
 <div class="row">
  <div><label>MOBILE</label>
  <select id="mobile">
- <option value="" selected>MobileMo</option>
- <option value="M01">M01</option><option value="M02">M02</option><option value="M03">M03</option>
- <option value="M05">M05</option><option value="M06">M06</option><option value="M07">M07</option>
+ <option value="" selected>-- SELECT MOBILE --</option>
+ <option value="M01">M01</option> <option value="M02">M02</option> <option value="M03">M03</option>
+ <option value="M05">M05</option> <option value="M06">M06</option> <option value="M07">M07</option>
  </select>
  </div>
  <div><label>TIME</label><input type="time" id="time"></div>
 </div>
+
+<!-- ✅ AOR — PUMILI O I-TYPE -->
 <label>AOR</label>
-<select id="loc">
- <option value="">AOR pre</option>
+<input list="aor-list" id="aor" placeholder="Pumili o I-type">
+<datalist id="aor-list">
  <option>ELLIPTICAL-COMMONWEALTH</option>
+ <option>COMMONWEALTH</option>
+ <option>ELLIPTICAL</option>
+ <option>EDSA MEGAMALL</option>
+ <option>EDSA BALINTAWAK</option>
+</datalist>
+
+<!-- ✅ LOCATION — PUMILI O I-TYPE -->
+<label>LOCATION</label>
+<input list="loc-list" id="loc" placeholder="Pumili o I-type">
+<datalist id="loc-list">
+ <option>ELLIPTICAL</option>
+ <option>COMMONWEALTH</option>
  <option>SOLIVEN COMMO.E/B</option>
  <option>DONA CARMEN COMMO. E/B</option>
- <option>WISTON COMMO. E/B</option>
- <option>MARLBORO COMMO. E/B</option>
- <option>REGALADO COMMO. E/B</option>
- <option>TECHNOHUB COMMO. W/B</option>
- <option>ALONG COMMONWEALTH</option>
- <option>ALONG ELLIPTICAL</option>
+ <option>WISTON COMMO.E/B</option>
+ <option>MARLBORO COMMO.E/B</option>
+ <option>REGALADO COMMO.E/B</option>
+ <option>TECHNOHUB COMMO.W/B</option>
  <option>EDSA MEGAMALL NB</option>
  <option>EDSA BALINTAWAK SB</option>
-</select>
+</datalist>
+
 <label>TRAFFIC SITUATION</label>
 <select id="traffic">
- <option value="" selected>SituationMo</option>
- <option value="LIGHT">LIGHT</option><option value="MODERATE">MODERATE</option><option value="HEAVY">HEAVY</option>
+ <option value="" selected>-- SELECT SITUATION --</option>
+ <option value="LIGHT">LIGHT</option>
+ <option value="MODERATE">MODERATE</option>
+ <option value="HEAVY">HEAVY</option>
 </select>
 <label>CURRENT SITUATION</label>
-<textarea id="situation" rows="2" placeholder="CONDUCTING TDC / ASSISTING ACCIDENT"></textarea>
+<textarea id="situation" rows="2" placeholder=""></textarea>
 <label>WEATHER CONDITION</label>
 <select id="weather">
- <option value="" selected>WeatherMo</option>
+ <option value="" selected>-- SELECT WEATHER --</option>
  <option value="SUNNY">SUNNY</option>
  <option value="CLOUDY">CLOUDY</option>
  <option value="RAINY">RAINY</option>
@@ -78,6 +105,10 @@
  <option value="WINDY">WINDY</option>
  <option value="CLEAR">CLEAR</option>
 </select>
+
+<button type="button" class="toggle-btn" id="advToggle" onclick="toggleAdvanced()">➕ MORE OPTIONS (Stalled / Accident / Remarks / Time Cleared)</button>
+
+<div id="advancedSection">
 <div class="section-title"> ---STALLED VEHICLE --- </div>
 <select id="stalledSelect" onchange="toggleStalled(this.value)">
  <option value="no" selected>NO STALLED</option>
@@ -85,13 +116,19 @@
 </select>
 <div id="stalledSection">
  <div class="vehicle-box">
- <input type="text" id="stalledVehicle" placeholder="PLATE NO / MAKE / MODEL">
- <input type="text" id="stalledReason" placeholder="REASON: OVERHEAT / FLAT TIRE / ENGINE TROUBLE">
- <input type="text" id="stalledDriver" placeholder="DRIVER NAME">
- <input type="text" id="towtruck" placeholder="TOWTRUCK">
- <input type="text" id="ticketno" placeholder="TICKET NO.">
+ <label>PLATE NO / MAKE / MODEL</label>
+ <input type="text" id="stalledVehicle" placeholder="">
+ <label>REASON: OVERHEAT / FLAT TIRE / ENGINE TROUBLE</label>
+ <input type="text" id="stalledReason" placeholder="">
+ <label>DRIVER NAME</label>
+ <input type="text" id="stalledDriver" placeholder="">
+ <label>TOWTRUCK</label>
+ <input type="text" id="towtruck" placeholder="">
+ <label>TICKET NO.</label>
+ <input type="text" id="ticketno" placeholder="">
  </div>
 </div>
+
 <div class="section-title">--- VEHICULAR ACCIDENT ---</div>
 <select id="accidentSelect" onchange="toggleAccident(this.value)">
  <option value="no" selected>NO ACCIDENT</option>
@@ -102,44 +139,65 @@
  <div id="vehiclesContainer">
  <div class="vehicle-box vehicle-entry" data-vehicle="1">
  <h4 style="color:#0a84ff;margin:0 0 12px 0">VEHICLE 1</h4>
- <input type="text" id="vehicle1_type" placeholder="Plate No. / Make / Model">
+ <label>PLATE NO / MAKE / MODEL</label>
+ <input type="text" id="vehicle1_type" placeholder="">
  <div class="row">
- <div><input type="text" id="vehicle1_or" placeholder="OR No."></div>
- <div><input type="text" id="vehicle1_cr" placeholder="CR No."></div>
+ <div><label>OR NO.</label><input type="text" id="vehicle1_or" placeholder=""></div>
+ <div><label>CR NO.</label><input type="text" id="vehicle1_cr" placeholder=""></div>
  </div>
- <input type="text" id="vehicle1_driver" placeholder="Driver Name">
- <input type="text" id="vehicle1_lic" placeholder="License No.">
- <input type="text" id="vehicle1_addr" placeholder="Address">
+ <label>DRIVER NAME</label>
+ <input type="text" id="vehicle1_driver" placeholder="">
+ <label>LICENSE NO.</label>
+ <input type="text" id="vehicle1_lic" placeholder="">
+ <label>ADDRESS</label>
+ <input type="text" id="vehicle1_addr" placeholder="">
  </div>
  </div>
  <button type="button" onclick="addVehicle()" class="add-btn">➕ Add Another Vehicle</button>
 </div>
-<label>REMARKS</label><textarea id="remarks" rows="2" placeholder="Actions taken / Other details"></textarea>
+
+<label>REMARKS</label>
+<textarea id="remarks" rows="2" placeholder=""></textarea>
 <div class="row">
  <div><label>TIME CLEARED</label><input type="time" id="cleared"></div>
 </div>
-<label>REPORTED BY - TAP PARA PUMILI, MAX 4</label>
+</div>
+
+<label>REPORTED BY - MAX 4 PERSONS</label>
 <select id="reportedby" multiple size="4" style="height: auto;">
  <option value="CHAVEZ (TMG)">CHAVEZ </option>
  <option value="CONTAWE (TMG)">CONTAWE</option>
  <option value="BAYAUA (TMG)">BAYAUA</option>
  <option value="LAZARO (TMG)">LAZARO</option>
  <option value="ROMEN (TMG)">ROMEN</option>
+<option value="ROSALES (TMG)">ROSALES</option>
  <option value="DUMPIT (TMG)">DUMPIT</option>
  <option value="BACAY (CSTD)">BACAY</option>
  <option value="SORIANO (CSTD)">SORIANO</option>
  <option value="TALISIC (CSTD)">TALISIC</option>
  <option value="DUMALAON (CSTD)">DUMALAON</option>
 </select>
+
 <button class="generate" onclick="generateReport()">Generate Report</button>
 <button class="copy" id="copyBtn" onclick="copyReport()">📋 Copy Report</button>
 <button class="clear" onclick="clearForm()">Clear Form</button>
 <pre id="output"></pre>
+
 <script>
+let advVisible = false;
+function toggleAdvanced() {
+  advVisible = !advVisible;
+  const sec = document.getElementById('advancedSection');
+  const btn = document.getElementById('advToggle');
+  sec.style.display = advVisible ? 'block' : 'none';
+  btn.innerText = advVisible ? '➖ HIDE OPTIONS' : '➕ MORE OPTIONS (Stalled / Accident / Remarks / Time Cleared)';
+}
+
 document.addEventListener('input', function(e) {
  if(e.target.tagName === 'INPUT' && e.target.type === 'text') e.target.value = e.target.value.toUpperCase();
  if(e.target.tagName === 'TEXTAREA') e.target.value = e.target.value.toUpperCase();
 });
+
 document.getElementById('reportedby').addEventListener('change', function() {
  let selected = Array.from(this.selectedOptions);
  if(selected.length > 4) {
@@ -147,11 +205,13 @@ document.getElementById('reportedby').addEventListener('change', function() {
  alert('HANGGANG 4 LANG PWEDE PILIIN!');
  }
 });
+
 let vehicleCount = 1;
 const now = new Date();
 const options = { month: 'short', day: '2-digit', year: 'numeric' };
 document.getElementById('date').value = now.toLocaleDateString('en-US', options).toUpperCase();
 document.getElementById('time').value = now.toTimeString().slice(0,5);
+
 function toggleStalled(val) {
  document.getElementById('stalledSection').style.display = (val === 'yes')? 'block' : 'none';
  if(val === 'no') {
@@ -159,13 +219,15 @@ function toggleStalled(val) {
  document.getElementById('stalledReason').value = '';
  document.getElementById('stalledDriver').value = '';
  document.getElementById('towtruck').value = '';
- document.getElementById='ticketno'.value = '';
+ document.getElementById('ticketno').value = '';
  }
 }
+
 function toggleAccident(val) {
  document.getElementById('accidentSection').style.display = (val === 'yes')? 'block' : 'none';
  if(val === 'no') clearAccidentData();
 }
+
 function addVehicle() {
  vehicleCount++;
  const container = document.getElementById('vehiclesContainer');
@@ -174,55 +236,66 @@ function addVehicle() {
  newVehicle.setAttribute('data-vehicle', vehicleCount);
  newVehicle.innerHTML = `
  <h4 style="color:#0a84ff;margin:0 0 12px 0">VEHICLE ${vehicleCount}</h4>
- <input type="text" id="vehicle${vehicleCount}_type" placeholder="Plate No. / Make / Model">
+ <label>PLATE NO / MAKE / MODEL</label>
+ <input type="text" id="vehicle${vehicleCount}_type" placeholder="">
  <div class="row">
- <div><input type="text" id="vehicle${vehicleCount}_or" placeholder="OR No."></div>
- <div><input type="text" id="vehicle${vehicleCount}_cr" placeholder="CR No."></div>
+ <div><label>OR NO.</label><input type="text" id="vehicle${vehicleCount}_or" placeholder=""></div>
+ <div><label>CR NO.</label><input type="text" id="vehicle${vehicleCount}_cr" placeholder=""></div>
  </div>
- <input type="text" id="vehicle${vehicleCount}_driver" placeholder="Driver Name">
- <input type="text" id="vehicle${vehicleCount}_lic" placeholder="License No.">
- <input type="text" id="vehicle${vehicleCount}_addr" placeholder="Address">
+ <label>DRIVER NAME</label>
+ <input type="text" id="vehicle${vehicleCount}_driver" placeholder="">
+ <label>LICENSE NO.</label>
+ <input type="text" id="vehicle${vehicleCount}_lic" placeholder="">
+ <label>ADDRESS</label>
+ <input type="text" id="vehicle${vehicleCount}_addr" placeholder="">
  `;
  container.appendChild(newVehicle);
 }
+
 function clearAccidentData() {
  document.getElementById('vehiclesContainer').innerHTML = `
  <div class="vehicle-box vehicle-entry" data-vehicle="1">
  <h4 style="color:#0a84ff;margin:0 0 12px 0">VEHICLE 1</h4>
- <input type="text" id="vehicle1_type" placeholder="Plate No. / Make / Model">
+ <label>PLATE NO / MAKE / MODEL</label>
+ <input type="text" id="vehicle1_type" placeholder="">
  <div class="row">
- <div><input type="text" id="vehicle1_or" placeholder="OR No."></div>
- <div><input type="text" id="vehicle1_cr" placeholder="CR No."></div>
+ <div><label>OR NO.</label><input type="text" id="vehicle1_or" placeholder=""></div>
+ <div><label>CR NO.</label><input type="text" id="vehicle1_cr" placeholder=""></div>
  </div>
- <input type="text" id="vehicle1_driver" placeholder="Driver Name">
- <input type="text" id="vehicle1_lic" placeholder="License No.">
- <input type="text" id="vehicle1_addr" placeholder="Address">
+ <label>DRIVER NAME</label>
+ <input type="text" id="vehicle1_driver" placeholder="">
+ <label>LICENSE NO.</label>
+ <input type="text" id="vehicle1_lic" placeholder="">
+ <label>ADDRESS</label>
+ <input type="text" id="vehicle1_addr" placeholder="">
  </div>
  `;
  vehicleCount = 1;
 }
+
 function generateReport() {
  const get = id => document.getElementById(id).value.trim();
- let shift = get('shift');
- if(shift === 'SHIFT') shift = '3RD';
+ const shift = get('shift');
+ if(!shift) { alert('PILI MUNA ANG SHIFT!'); return; }
+ 
  let unit = "TMG";
  let date = get('date');
  let time = get('time');
  if(time) { time = time.replace(':', '') + 'H'; }
  
  let report = '';
- report += `🚦🚦 TRAFFIC UPDATE 🚦🚦\n`;
- report += `UNIT : ${unit} ${shift} SHIFT\n`;
- report += `DATE : ${date}\n`;
- report += `TIME : ${time}\n`;
- report += `AOR : ${get('loc').toUpperCase()}\n`;
- report += '____________________\n';
- 
- if(get('traffic')) report += 'TRAFFIC SITUATION: ' + get('traffic') + '\n';
- if(get('weather')) report += 'WEATHER CONDITION: ' + get('weather') + '\n';
+ report += `🚦🚦 TRAFFIC UPDATE 🚦🚦\n\n`;
+ report += `UNIT: ${unit} ${shift} SHIFT\n`;
+ report += `DATE: ${date}\n`;
+ report += `TIME: ${time}\n`;
+ report += `AOR : ${get('aor').toUpperCase()}\n`;
+report += '____________________\n\n';
+if(get('loc')) report += 'LOCATION:\n* ' + get('loc') + '\n';
+ if(get('traffic')) report += 'TRAFFIC SITUATION:\n* ' + get('traffic') + '\n';
+ if(get('weather')) report += 'WEATHER CONDITION:\n* ' + get('weather') + '\n';
  
  let situation = get('situation');
- if(!situation) situation = 'CONDUCTING TDC';
+ if(!situation) situation = 'CONDUCT AREA MONITORING';
  let s = situation.split('\n').map(line => '* ' + line).join('\n');
  report += 'CURRENT SITUATION:\n' + s + '\n';
  
@@ -282,6 +355,7 @@ function generateReport() {
  document.getElementById('output').innerText = report;
  document.getElementById('copyBtn').style.display = 'block';
 }
+
 function copyReport() {
  const text = document.getElementById('output').innerText;
  if (!text) { alert('WALA PANG REPORT NA GENERATED!'); return; }
@@ -294,6 +368,7 @@ function copyReport() {
  document.getElementById('copyBtn').innerText = '✅ Copied!';
  setTimeout(() => document.getElementById('copyBtn').innerText = '📋 Copy Report', 2000);
 }
+
 function clearForm() {
  document.querySelectorAll('input[type=text], input[type=time], textarea').forEach(el => {
  if(el.id!== 'date') el.value = '';
@@ -304,8 +379,10 @@ function clearForm() {
  document.getElementById('output').style.display = 'none';
  document.getElementById('copyBtn').style.display = 'none';
  document.getElementById('time').value = new Date().toTimeString().slice(0,5);
+ advVisible = false;
+ document.getElementById('advancedSection').style.display = 'none';
+ document.getElementById('advToggle').innerText = '➕ MORE OPTIONS (Stalled / Accident / Remarks / Time Cleared)';
 }
 </script>
 </body>
 </html>
-  
