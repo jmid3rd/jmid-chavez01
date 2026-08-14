@@ -136,9 +136,9 @@
 </select>
 <div id="stalledSection">
  <div class="vehicle-box">
- <label>PLATE NO / MAKE / MODEL</label>
+ <label>PLATE NO / MAKE / MODEL:</label>
  <input type="text" id="stalledVehicle" style="width:100%;" placeholder="">
- <label>REASON: OVERHEAT / FLAT TIRE / ENGINE TROUBLE</label>
+ <label>REASON:</label>
  <input type="text" id="stalledReason" style="width:100%;" placeholder="OVERHEAT / FLAT TIRE / ENGINE TROUBLE">
  <label>DRIVER NAME:</label>
  <input type="text" id="stalledDriver" style="width:100%;" placeholder="">
@@ -146,7 +146,7 @@
  <input type="text" id="stalledlicno" style="width:100%;" placeholder="">
  <label>TOWTRUCK:</label>
  <input type="text" id="towtruck" style="width:100%;" placeholder="">
- <label>PROPERTY DAMAGE:</label>
+ <label>ADDRESS:</label>
  <input type="text" id="stalledproda" style="width:100%;" placeholder="">
  <label>TICKET NO.:</label>
  <input type="text" id="ticketno" style="width:100%;" placeholder="">
@@ -163,19 +163,19 @@
  <div id="vehiclesContainer">
  <div class="vehicle-box vehicle-entry" data-vehicle="1">
  <h4 style="color:#0a84ff;margin:0 0 12px 0">VEHICLE 1</h4>
- <label>PLATE NO / MAKE / MODEL</label>
+ <label>PLATE NO / MAKE / MODEL:</label>
  <input type="text" id="vehicle1_type" style="width:100%;" placeholder="">
- <label>OR NO.</label>
+ <label>OR NO.:</label>
  <input type="text" id="vehicle1_or" style="width:100%;" placeholder="">
- <label>CR NO.</label>
+ <label>CR NO.:</label>
  <input type="text" id="vehicle1_cr" style="width:100%;" placeholder="">
- <label>DRIVER NAME</label>
+ <label>DRIVER NAME:</label>
  <input type="text" id="vehicle1_driver" style="width:100%;" placeholder="">
- <label>LICENSE NO.</label>
+ <label>LICENSE NO.:</label>
  <input type="text" id="vehicle1_lic" style="width:100%;" placeholder="">
  <label>ADDRESS</label>
  <input type="text" id="vehicle1_addr" style="width:100%;" placeholder="">
- <label>TYPE OF COLLISION</label>
+ <label>TYPE OF COLLISION:</label>
  <div class="row">
   <select id="vehicle1_collision_sel" style="width:10%;" onchange="document.getElementById('vehicle1_collision').value=this.value; this.selectedIndex=0;">
    <option value="">-- PUMILI --</option>
@@ -412,7 +412,7 @@ if(get('loc')) report += 'LOCATION:\n  * ' + get('loc') + '\n';
  if(stalledR) report += 'REASON:\n  * ' + stalledR + '\n';
  if(stalledD) report += 'DRIVER:\n  * ' + stalledD + '\n';
  if(stalledLic) report += 'LICENSE NO:\n  * ' + stalledLic + '\n';
- if(stalledDam) report += 'PROPERTY DAMAGE:\n  * ' + stalledDam + '\n';
+ if(stalledDam) report += 'ADDRESS:\n  * ' + stalledDam + '\n';
  if(tow) report += 'TOWTRUCK:\n  * ' + tow + '\n';
  if(ticket) report += 'TICKET NO:\n  * ' + ticket + '\n';
  }
