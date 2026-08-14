@@ -351,6 +351,7 @@ function generateReport() {
  if(!shift) { alert('PILI MUNA ANG SHIFT!'); return; }
  
  let unit = "TMG";
+ let mobile = get('mobile');
  let date = get('date');
  let time = get('time');
  if(time) { time = time.replace(':', '') + 'H'; }
@@ -358,6 +359,7 @@ function generateReport() {
  let report = '';
  report += `🚦🚦 TRAFFIC UPDATE 🚦🚦\n\n`;
  report += `UNIT: ${unit} ${shift} SHIFT\n`;
+ report += `MOBILE: ${mobile}\n`;
  report += `DATE: ${date}\n`;
  report += `TIME: ${time}\n`;
  report += `AOR : ${get('aor').toUpperCase()}\n`;
