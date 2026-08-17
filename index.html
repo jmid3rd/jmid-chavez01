@@ -347,7 +347,7 @@ function clearAccidentData() {
  vehicleCount = 1;
 }
 
-// ✅ INAYOS NA ANG OUTPUT FORMAT — KATULAD NG EXAMPLE MO
+// ✅ INAYOS NA ANG OUTPUT FORMAT
 function generateReport() {
  const get = id => document.getElementById(id).value.trim();
  const shift = get('shift');
@@ -366,7 +366,7 @@ function generateReport() {
  report += `DATE: ${date}\n`;
  report += `TIME: ${time}\n`;
  report += `AOR : ${get('aor').toUpperCase()}\n`;
-report += '____________________\n\n';
+report += '_______________________\n\n';
 if(get('loc')) report += 'LOCATION:\n  * ' + get('loc') + '\n';
  if(get('traffic')) report += 'TRAFFIC SITUATION:\n  * ' + get('traffic') + '\n';
  if(get('weather')) report += 'WEATHER CONDITION:\n  * ' + get('weather') + '\n';
@@ -426,7 +426,7 @@ if(get('loc')) report += 'LOCATION:\n  * ' + get('loc') + '\n';
  report += '\nREMARKS:\n' + r + '\n';
  }
  if(get('cleared')) report += '\nTIME CLEARED:\n  * ' + get('cleared') + '\n';
- report += '____________________\n';
+ report += '_______________________\n';
  
  let reporters = Array.from(document.getElementById('reportedby').selectedOptions).map(opt => opt.value);
  if(reporters.length > 0) {
