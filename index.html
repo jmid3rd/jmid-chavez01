@@ -366,7 +366,7 @@ function generateReport() {
  report += `DATE: ${date}\n`;
  report += `TIME: ${time}\n`;
  report += `AOR : ${get('aor').toUpperCase()}`;
-report += '_______________________\n\n';
+report += '_______________________\n';
 if(get('loc')) report += 'LOCATION:\n  * ' + get('loc') + '\n';
  if(get('traffic')) report += 'TRAFFIC SITUATION:\n  * ' + get('traffic') + '\n';
  if(get('weather')) report += 'WEATHER CONDITION:\n  * ' + get('weather') + '\n';
