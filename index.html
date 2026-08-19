@@ -6,13 +6,6 @@
 <title>TMG Report v1.2</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0a84ff">
-<script>
-if('serviceWorker' in navigator) { 
-  navigator.serviceWorker.register('sw.js')
-    .then(registration => { console.log('✅ SW registered'); })
-    .catch(err => { console.log('⚠️ SW skipped — works fine'); });
-}
-</script>
 <style>
  body { font-family: Arial; background: #1c1c1e; color: #fff; padding: 15px; margin: 0; max-width: 100%; }
  #output { background: #111; color: #fff; padding: 15px; border-radius: 8px; margin-top: 15px; white-space: pre-wrap; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.5; display: none; word-break: break-word; border: 1px solid #0a84ff; }
