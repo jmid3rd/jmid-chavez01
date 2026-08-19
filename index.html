@@ -471,5 +471,19 @@ function clearForm() {
   document.getElementById('advToggle').innerText = '➕ MORE OPTIONS (Stalled / Accident / Remarks / Time Cleared)';
 }
 </script>
+  <script>
+// Register Service Worker for offline support
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js')
+      .then(function(registration) {
+        console.log('Service Worker registered:', registration);
+      })
+      .catch(function(error) {
+        console.log('Service Worker registration failed:', error);
+      });
+  });
+}
+</script>
 </body>
 </html>
