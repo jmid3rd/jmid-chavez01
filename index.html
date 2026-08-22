@@ -425,7 +425,7 @@ function generateReport() {
  
   let reporters = Array.from(document.getElementById('reportedby').selectedOptions).map(opt => opt.value);
   if(reporters.length > 0) {
-    report += 'REPORTED BY:\n';
+    report += 'ONBOARD:\n';
     reporters.forEach(name => { report += '  * ' + name + '\n'; });
   }
  
